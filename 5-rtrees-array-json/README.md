@@ -1,4 +1,4 @@
-# Lab 3 - R-Trees indices, Array and JSON datatypes
+# Lab 5 - R-Trees indices, Array and JSON datatypes
 
 Grading: 3pt
 
