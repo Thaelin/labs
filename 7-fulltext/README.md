@@ -1,5 +1,7 @@
 # Session 6 - Fulltext
 
+Grading: 2pt
+
 ## Setup
 
 ```
