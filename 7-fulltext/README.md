@@ -22,7 +22,7 @@ Try to find some limitations of your solutions - find a few queries (2 cases are
 
 Hints:
 
-- The data is in slovak, so you will need to use appropriate dictionary. Type \dF to `psql` to see available configurations for your installation. There's no support for slovak language, don't worry about it, just create an unaccenting configuration based on the `simple` configuration.
+- The data is in slovak, so you will need to use an appropriate dictionary. Type \dF inside `psql` to see available configurations for your installation. There's no support for slovak language, don't worry about it, just create an unaccenting configuration based on the `simple` configuration.
    ```
     oz=# \dF
                   List of text search configurations
