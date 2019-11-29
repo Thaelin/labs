@@ -33,6 +33,6 @@ As a rough guideline:
 ```
 
 3. Prepare a mapping, feel free to do it "by hand", e.g. via Postman/curl, you don't need to write code for this.
-4. Write a code in a language of your choice which will run the SQL queries, build JSON documents and index them in Elasticsearch
+4. Write a code in a language of your choice which will run the SQL queries, build JSON documents and index them in Elasticsearch. You don't need a library specifically for "Elasticsearch", just use an HTTP client library. Most of the "elasticsearch" libraries that you can find are probably overkill for this lab, as they try to provide ORM functionalities.
 5. You can always check the data in elasticsearch by running a simple `GET` request at the `_search` endpoint.
 6. Once you have the data, write the Elasticsearch query. It should be really simple, a match query with an aggregation.
