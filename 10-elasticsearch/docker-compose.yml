@@ -1,0 +1,152 @@
+version: '2.2'
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    container_name: es01
+    environment:
+      - node.master=false
+      - node.data=true
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03,esmaster01,esmaster02,esmaster03
+      - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - elastic
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    container_name: es02
+    environment:
+      - node.master=false
+      - node.data=true
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03,esmaster01,esmaster02,esmaster03
+      - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata02:/usr/share/elasticsearch/data
+    ports:
+      - 9201:9200
+    networks:
+      - elastic
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    container_name: es03
+    environment:
+      - node.master=false
+      - node.data=true
+      - node.name=es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,esmaster01,esmaster02,esmaster03
+      - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata03:/usr/share/elasticsearch/data
+    ports:
+      - 9202:9200
+    networks:
+      - elastic
+  esmaster01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    container_name: esmaster01
+    environment:
+      - node.master=true
+      - node.data=false
+      - node.name=esmaster01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,esmaster02,esmaster03
+      - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esmaster01:/usr/share/elasticsearch/data
+    ports:
+      - 9210:9200
+    networks:
+      - elastic
+  esmaster02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    container_name: esmaster02
+    environment:
+      - node.master=true
+      - node.data=false
+      - node.name=esmaster02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,esmaster01,esmaster03
+      - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esmaster02:/usr/share/elasticsearch/data
+    ports:
+      - 9211:9200
+    networks:
+      - elastic
+  esmaster03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    container_name: esmaster03
+    environment:
+      - node.master=true
+      - node.data=false
+      - node.name=esmaster03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,esmaster01,esmaster02
+      - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esmaster03:/usr/share/elasticsearch/data
+    ports:
+      - 9212:9200
+    networks:
+      - elastic
+
+volumes:
+  esdata01:
+    driver: local
+  esdata02:
+    driver: local
+  esdata03:
+    driver: local
+  esmaster01:
+    driver: local
+  esmaster02:
+    driver: local
+  esmaster03:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge
