@@ -1,4 +1,4 @@
-# Session 6 - Fulltext
+# Session 7 - Fulltext
 
 Grading: 2pt
 
